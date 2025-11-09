@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Compass - HackMemphis 2025</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+
+    <style>        
+        :root {
+            --memphis-blue: #005A9C;
+            --memphis-gold: #FDB813;
+            
+            --primary-text: #2c3e50;    
+            --secondary-text: #7f8c8d; 
+            --border-color: #dfe4ea;    
+            --light-gray-bg: #f8f9fa;   
+            --container-bg: #ffffff;
+            --success-green: #28a745;
+            
+            --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+        }
+        
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {  
+            font-family: var(--font-body); 
+            margin: 0;  
+            padding: 2rem 1rem;
+            background: var(--light-gray-bg);
+            color: var(--primary-text);
+        }
+
+        .container {  
+            max-width: 750px;
+            margin: 2rem auto;
+            padding: 3rem 3.5rem;
+            background: var(--container-bg);
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(44, 62, 80, 0.08);
+            border: 1px solid #fff;
+            
+            opacity: 0;
+            animation: slideInUp 0.8s 0.2s var(--ease-out-cubic) forwards;
+        }
+        
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group, #find-button, .app-header h1, .app-header .subtitle {
+            opacity: 0;
+            animation: slideInUp 0.7s var(--ease-out-cubic) forwards;
+        }
+        
+        .app-header h1 { animation-delay: 0.1s; }
+        .app-header .subtitle { animation-delay: 0.2s; }
+        .form-group:nth-of-type(1) { animation-delay: 0.4s; }
+        .form-group:nth-of-type(2) { animation-delay: 0.5s; }
+        .form-group:nth-of-type(3) { animation-delay: 0.6s; }
+        .form-group:nth-of-type(4) { animation-delay: 0.7s; }
+        #find-button { animation-delay: 0.8s; }
+        
+        
+        h1 {
+            font-family: var(--font-heading); 
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: var(--primary-text);
+            margin: 0 0 0.5rem 0;
+            text-align: center;
+            letter-spacing: -1px; 
+        }
+        
+        .subtitle {
+            font-family: var(--font-body); 
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--secondary-text);
+            margin-bottom: 3.5rem;
+            text-align: center;
+        }
+
+        h2 {  
+            font-family: var(--font-heading); 
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-text);
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 12px;
+            letter-spacing: -0.5px; 
+            border-bottom: 2px dashed var(--border-color);
+        }
+        
+        #smart-form {
+            margin-bottom: 2.5rem;
+            counter-reset: form-stepper; 
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 50px; 
+        }
+        
+        .form-group label {
+            display: block;
+            font-family: var(--font-body);
+            font-weight: 600;
+            color: var(--secondary-text);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s var(--ease-out-quad);
+        }
+        
+        .form-group::before {
+            counter-increment: form-stepper; 
+            content: counter(form-stepper); 
+            
+            position: absolute;
+            left: 0;
+            top: 5px;
+            
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            font-family: var(--font-heading); 
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--secondary-text);
+            
+            background: #fff;
+            transition: all 0.3s var(--ease-out-quad);
+        }
+        
+        .form-group .icon {
+            display: none; 
+        }
+        
+        .form-group input, .form-group textarea {
+            display: block;
+            width: 100%;
+            padding: 0.9rem 1rem;
+            font-size: 1.1rem;
+            font-family: var(--font-body); 
+            font-weight: 400;
+            color: var(--primary-text);
+            border: 2px solid var(--border-color);
+            background: var(--light-gray-bg);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s var(--ease-out-quad);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-group:focus-within label {
+            color: var(--memphis-blue); 
+        }
+        .form-group:focus-within::before {
+            border-color: var(--memphis-gold);
+            color: var(--primary-text);
+            background: var(--memphis-gold);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(253, 184, 19, 0.5);
+        }
+        .form-group:focus-within input,
+        .form-group:focus-within textarea {
+            border-color: var(--memphis-blue);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 90, 156, 0.1);
+        }
+
+        
+        button#find-button {  
+            display: block;  
+            width: 100%;  
+            padding: 1.25rem;
+            font-size: 1.1rem;  
+            color: var(--memphis-blue);  
+            border: 2px solid var(--memphis-blue);
+            background: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: var(--font-heading); 
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.4s var(--ease-out-cubic);
+        }
+        
+        button#find-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--memphis-blue);
+            transform: translateX(-100%);
+            transition: transform 0.4s var(--ease-out-cubic);
+            z-index: -1;
+        }
+
+        button#find-button:hover {
+            color: white; 
+        }
+        button#find-button:hover::before {
+            transform: translateX(0); 
+        }
+        
+        button:disabled {  
+            background-color: #ccc;  
+            border-color: #ccc;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        button:disabled::before {
+            transform: translateX(-100%) !important;
+        }
+
+        .results {  
+            margin-top: 2.5rem;  
+            animation: fadeIn 0.5s 0.3s ease forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        #loading {
+            display: none;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .scanner-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .scanner-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 90, 156, 0.8), 
+                transparent
+            );
+            animation: scan 2s infinite ease-in-out;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(200%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .code-item, .rfp-item {  
+            background-color: #fff; 
+            padding: 1rem 1.25rem;  
+            border-radius: 8px;  
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s var(--ease-out-quad);
+            overflow: hidden;
+        }
+        
+        .code-item:hover, .rfp-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.1);
+            border-color: var(--memphis-blue);
+        }
+        
+        .code-item strong {  
+            font-family: var(--font-mono); 
+            font-size: 1.1rem;  
+            color: var(--memphis-blue);  
+            font-weight: 500;
+        }
+        .code-item {
+            font-family: var(--font-body); 
+        }
+        
+        .rfp-item a {  
+            font-family: var(--font-mono); 
+            text-decoration: none;  
+            color: var(--primary-text);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        .rfp-item a:hover { color: var(--memphis-blue); }
+        
+        .check-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-left-width: 5px; 
+            transition: all 0.3s var(--ease-out-quad);
+        }
+        .check-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(44, 62, 80, 0.07);
+        }
+        
+        .check-item.complete {
+            border-left-color: var(--success-green);
+        }
+        .check-item.incomplete {
+            border-left-color: var(--border-color);
+        }
+        #profile-builder-step {
+            border-left-color: var(--memphis-gold);
+            background: var(--light-gray-bg);
+        }
+        
+        .check-item strong {
+            font-size: 1.2rem;
+            color: var(--primary-text);
+            font-family: var(--font-heading); 
+        }
+        .check-item p {
+            margin: 0.5rem 0 1rem 0;
+            color: var(--secondary-text);
+            font-family: var(--font-body);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        
+        .button-secondary {
+            display: inline-block;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            background-color: var(--light-gray-bg);
+            color: var(--primary-text);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .button-secondary:hover {
+            background-color: #fff;
+            border-color: var(--primary-text);
+            color: var(--primary-text);
+        }
+        #copy-profile-btn:focus {
+            background-color: var(--success-green);
+            border-color: var(--success-green);
+            color: #fff;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 0 1rem 0;
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 1rem 0.5rem; }
+            .container {
+                padding: 2rem 1.5rem;
+                margin: 1rem auto;
+            }
+            h1 { font-size: 2.25rem; }
+            .subtitle { font-size: 1rem; }
+            
+            .form-group {
+                padding-left: 0;
+                padding-top: 50px; 
+            }
+            .form-group::before {
+                top: 0;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        
+        <header class="app-header">
+            <h1><span style="color: var(--memphis-blue);">C</span>contract<span style="color: var(--memphis-blue);">C</span>ompass</h1>
+            <p class="subtitle">Your AI guide to City of Memphis contracts.</p>
+        </header>
+        
+        <div id="smart-form">
+            <div class="form-group">
+                <label for="biz-name">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    BUSINESS NAME
+                </label>
+                <input type="text" id="biz-name" placeholder="e.g., 'Memphis Janitorial Pros'">
+            </div>
+            <div class="form-group">
+                <label for="biz-services">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 7h-9v-2h9v2zm0 4h-9v-2h9v2zm0 4h-9v-2h9v2zm-10-8v-2h-2v2h2zm0 4v-2h-2v2h2zm0 4v-2h-2v2h2zm-4-4h-4v-2h4v2zm0 4h-4v-2h4v2zm0-8h-4v-2h4v2z"/></svg>
+                    MAIN SERVICES
+                </label>
+                <input type="text" id="biz-services" placeholder="e.g., 'janitorial services, cleaning services'">
+            </div>
+            <div class="form-group">
+                <label for="biz-specs">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    SPECIALIZATIONS
+                </label>
+                <input type="text" id="biz-specs" placeholder="e.g., 'office cleaning, floor waxing, post-construction cleanup'">
+            </div>
+            
+            <div class="form-group">
+                <label for="biz-other">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+
+                    OTHER DETAILS (OPTIONAL)
+                </label>
+                <textarea id="biz-other" rows="3" placeholder="e.g., 'We are M/WBE certified, we use eco-friendly products...'"></textarea>
+            </div>
+        </div>
+        
+        <button id="find-button">Generate My Profile →</button>
+        
+        <div id="loading">
+            <div class="scanner-bar"></div>
+        </div>
+        
+        <div class="results" id="results" style="display:none;">
+            
+            <div id="profile-pack" style="display:none;">
+                <h2>Your Vendor Profile Pack</h2>
+                
+                <div class="check-item incomplete" id="profile-builder-step">
+                    <strong>Your AI-Generated Profile</strong>
+                    <p id="ai-profile-text" style="font-style: italic;"></p>
+                    <button id="copy-profile-btn" class="button-secondary">Copy Profile Text</button>
+                </div>
+
+                <div class="check-item complete">
+                    <strong>Step 1: Find Your Service Codes</strong>
+                    <p>Your AI-generated codes are listed below. We've saved you hours of searching!</p>
+                </div>
+                
+                <div class="check-item incomplete">
+                    <strong>Step 2: Register as a City Vendor</strong>
+                    <p>The next step is to create an official profile. Use the codes and profile text we generated for you!</p>
+                    <a href="https://memphistn.gov/business/" target="_blank" class="button-secondary">Go to Vendor Portal</a>
+                </div>
+                
+                <div class="check-item incomplete">
+                    <strong>Step 3: Bid on an Open Contract</strong>
+                    <p>Your matched contracts are listed below. You can now bid on them directly.</p>
+                </div>
+            </div>
+            
+            <h2>AI-Generated Service Codes</h2>
+            <div id="codes-list"></div>
+            
+            <h2>Open Contract Matches</h2>
+            <div id="rfps-list"></div>
+        </div>
+        
+        <footer>
+            <p>Built for the <strong>HackMemphis 2025</strong> City Hackathon</p>
+        </footer>
+    </div>
+
+
+    <script>
+
+        const findButton = document.getElementById('find-button');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const codesList = document.getElementById('codes-list');
+        const rfpsList = document.getElementById('rfps-list');
+        
+        findButton.addEventListener('click', async () => {
+            const bizName = document.getElementById('biz-name').value;
+            const bizServices = document.getElementById('biz-services').value;
+            const bizSpecs = document.getElementById('biz-specs').value;
+            const bizOther = document.getElementById('biz-other').value;
+
+            if (!bizName || !bizServices) {
+                alert('Please fill out at least Step 1 (Name) and Step 2 (Services).');
+                return;
+            }
+            
+            document.getElementById('smart-form').style.display = 'none';
+            document.getElementById('find-button').style.display = 'none';
+            document.querySelector('.subtitle').style.display = 'none';
+
+            loading.style.display = 'block';
+            results.style.display = 'none';
+            findButton.disabled = true;
+
+            const apiEndpoint = '/api/find_contracts';
+            
+            try {
+                const response = await fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        name: bizName,
+                        services: bizServices,
+                        specialties: bizSpecs,
+                        other: bizOther
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                renderResults(data);
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                alert('Something went wrong. Please try again.');
+            } finally {
+                loading.style.display = 'none';
+                findButton.disabled = false;
+            }
+        });
+
+        function renderResults(data) {
+            codesList.innerHTML = '';
+            rfpsList.innerHTML = '';
+
+            const profilePack = document.getElementById('profile-pack');
+            const aiProfileText = document.getElementById('ai-profile-text');
+
+            // Render Codes
+            if (data.codes && data.codes.length > 0) {
+                data.codes.forEach(code => {
+                    const el = document.createElement('div');
+                    el.className = 'code-item';
+                    el.innerHTML = `<strong>${code.code}</strong>: ${code.description}`;
+                    codesList.appendChild(el);
+                });
+            } else {
+                codesList.innerHTML = '<p>No matching codes found.</p>';
+            }
+
+            // Render Profile Pack
+            if (data.profile) {
+                aiProfileText.textContent = data.profile;
+                profilePack.style.display = 'block';
+            } else {
+                profilePack.style.display = 'none';
+            }
+
+            // Render RFPs
+            if (data.rfps && data.rfps.length > 0) {
+                data.rfps.forEach(rfp => {
+                    const el = document.createElement('div');
+                    el.className = 'rfp-item';
+                    
+                    el.innerHTML = `<a href="${rfp.url}" target="_blank">${rfp.title}</a>`;
+                    
+                    rfpsList.appendChild(el);
+                });
+            } else {
+                rfpsList.innerHTML = '<p>No open contracts found that match your profile.</p>';
+            }
+
+            results.style.display = 'block';
+
+            const copyBtn = document.getElementById('copy-profile-btn');
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(aiProfileText.textContent).then(() => {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(() => { copyBtn.textContent = 'Copy Profile Text'; }, 2000);
+                }, (err) => {
+                    console.error('Could not copy text: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

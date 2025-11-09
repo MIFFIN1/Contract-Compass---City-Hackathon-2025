@@ -1,4 +1,4 @@
-# VendorAI 🏗️
+# Compact Compass
 ### HackMemphis 2025 - Challenge #3 Winner
 
 > **Tagline:**  AI-powered gateway to City of Memphis codes and contracts.
@@ -10,8 +10,8 @@ Memphis has over 130,000 local businesses, but becoming a City vendor is a burea
 
 This is a **225+ page PDF** of complex government jargon. It is a massive technical barrier that disproportionately filters out the very Minority and Women-owned Business Enterprises (M/WBEs) the City wants to hire.
 
-## The Solution: VendorAI
-VendorAI replaces clunky government forms with an intelligent, conversational experience. It uses a **Triple-AI Pipeline** to translate a user's plain-English business description into official government data and instantly matches them with live contract opportunities.
+## The Solution: Compact Compass
+Compact Compass replaces clunky government forms with an intelligent, conversational experience. It uses a **Triple-AI Pipeline** to translate a user's plain-English business description into official government data and instantly matches them with live contract opportunities.
 
 We turn a 3-day headache into a 60-second "luxury" onboarding experience.
 

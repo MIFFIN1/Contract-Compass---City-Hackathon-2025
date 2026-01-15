@@ -1,5 +1,5 @@
 # Compact Compass
-### HackMemphis 2025 - Challenge #3 Winner
+### HackMemphis 2025 - Challenge #3
 
 > **Tagline:**  AI-powered gateway to City of Memphis codes and contracts.
 
